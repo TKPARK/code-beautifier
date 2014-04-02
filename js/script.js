@@ -15,9 +15,10 @@ function beautifier() {
   
   // 1.최대길이 구하기
   for(var i=0; i<line.length; i++) {
-    if(line[i] == '') {
-      break;
+    if(line[i].indexOf(separator1) == -1 || line[i].indexOf(separator2) == -1 ) {
+      continue;
     }
+    
     var temp = line[i].split(separator1);
     var field = trim(temp[0], 2);
     
@@ -36,9 +37,11 @@ function beautifier() {
   
   // 2.최대길이만큼 공백 추가하기
   for(var i=0; i<line.length; i++) {
-    if(line[i] == '') {
-      break;
+    if(line[i].indexOf(separator1) == -1 || line[i].indexOf(separator2) == -1 ) {
+      result = result + line[i] + '\n';
+      continue;
     }
+    
     var temp = line[i].split(separator1);
     var field = trim(temp[0], 2);
     
@@ -56,8 +59,8 @@ function beautifier() {
       value = value + space;
     }
     
-    line[i] = def + field + def + separator1 + def + value + def + separator2 + def + comment + '\n';
-    result = result + line[i];
+    line[i] = def + field + def + separator1 + def + value + def + separator2 + def + comment;
+    result = result + line[i] + '\n';
   }
   
   // 3.출력
