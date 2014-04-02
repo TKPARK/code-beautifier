@@ -10,8 +10,11 @@ section {
   padding: 10px;
 }
 
+section {
+  font:12pt DotumChe;
+}
+
 textarea {
   width: 100%;
-  font:12pt DotumChe;
 }
 
