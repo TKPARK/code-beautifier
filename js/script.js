@@ -1,4 +1,8 @@
 
+// jQuery Function
+$(function() {
+  $("#source").linedtextarea();
+});
 
 // Reset
 function reset() {
@@ -93,5 +97,4 @@ function trim(str, value) {
     return str.replace(/^\s*|\s*$/g, ""); // 앞,뒤 공백제거
   }
 }
-
 
