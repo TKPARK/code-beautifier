@@ -15,12 +15,15 @@ function beautifier() {
   
   // 1.최대길이 구하기
   for(var i=0; i<line.length; i++) {
+    if(line[i] == '') {
+      break;
+    }
     var temp = line[i].split(separator1);
-    var field = trim(temp[0]);
+    var field = trim(temp[0], 2);
     
     temp = temp[1].split(separator2);
-    var value = trim(temp[0]);
-    var comment = trim(temp[1]);
+    var value = trim(temp[0], 2);
+    var comment = trim(temp[1], 1);
     
     if(field.length > fieldMaxLength) {
       fieldMaxLength = field.length;
@@ -33,12 +36,15 @@ function beautifier() {
   
   // 2.최대길이만큼 공백 추가하기
   for(var i=0; i<line.length; i++) {
+    if(line[i] == '') {
+      break;
+    }
     var temp = line[i].split(separator1);
-    var field = trim(temp[0]);
+    var field = trim(temp[0], 2);
     
     temp = temp[1].split(separator2);
-    var value = trim(temp[0]);
-    var comment = trim(temp[1]);
+    var value = trim(temp[0], 2);
+    var comment = trim(temp[1], 1);
     
     var diff = fieldMaxLength - field.length;
     for(var j=0; j<diff; j++) {
@@ -61,9 +67,12 @@ function beautifier() {
 
 
 // 공백제거
-function trim(str) {
-  //return str.replace(/(^\s*)|(\s*$)/, ""); // 앞,뒤 공백제거
-  return str.replace(/(\s*)/g, ""); // 전체 공백제거
+function trim(str, mode) {
+  if(mode == 1) {
+    return str.replace(/^\s*|\s*$/g, ""); // 앞,뒤 공백제거
+  }else {
+    return str.replace(/(\s*)/g, ""); // 전체 공백제거
+  }
 }
 
 
