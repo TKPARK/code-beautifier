@@ -1,5 +1,11 @@
 
 
+// Reset
+function reset() {
+  document.getElementById("source").value = '';
+}
+
+
 // Code Beautifier
 function beautifier() {
   var result = '';
