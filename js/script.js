@@ -7,7 +7,7 @@ $(function() {
 // Reset
 function reset() {
   document.getElementById("is_trim").value = 0;
-  document.getElementById("front_blank").value = '';
+  document.getElementById("add_space").value = '';
   document.getElementById("separator1").value = '';
   document.getElementById("separator2").value = '';
   document.getElementById("source").value = '';
@@ -25,7 +25,7 @@ function beautifier() {
   // get value
   var space = ' ';
   var is_trim = document.getElementById("is_trim").value;
-  var front_blank = document.getElementById("front_blank").value;
+  var add_space = document.getElementById("add_space").value;
   var separator1 = document.getElementById("separator1").value;
   var separator2 = document.getElementById("separator2").value;
   var source = document.getElementById("source").value;
@@ -79,7 +79,7 @@ function beautifier() {
       value = value + space;
     }
     
-    line[i] = front_blank + field + space + separator1 + space + value + space + separator2 + space + comment;
+    line[i] = add_space + field + space + separator1 + space + value + space + separator2 + space + comment;
     result = result + line[i] + '\n';
   }
   
