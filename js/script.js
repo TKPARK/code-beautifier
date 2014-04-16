@@ -98,3 +98,24 @@ function trim(str, value) {
   }
 }
 
+
+// Code Auto Beautifier
+function auto_beautifier() {
+  // init
+  var type = '';
+  
+  // get value
+  var source = document.getElementById("source").value;
+  
+  
+  
+  if(line[i].indexOf(':=') == 1 && line[i].indexOf('--') == 1 ) {
+    type = 'plsql_set_value';
+  } else if(line[i].indexOf('0x00') == 1 && line[i].indexOf('));') == 1 ) {
+    type = 'pc_memset';
+  }
+  
+  
+  
+  alert(type);
+}
