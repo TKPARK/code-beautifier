@@ -95,6 +95,22 @@ function beautifier() {
 
 // Code Auto Beautifier
 function autoBeautifier() {
+  // const
+  const TYPE1_SEPARATOR1 = ':=';
+  const TYPE1_SEPARATOR2 = '--';
+  
+  const TYPE2_SEPARATOR1 = '0x00,';
+  const TYPE2_SEPARATOR2 = '));';
+  
+  const TYPE3_SEPARATOR1 = '&idx,';
+  const TYPE3_SEPARATOR2 = ');';
+  
+  const TYPE4_SEPARATOR1 = ':';
+  const TYPE4_SEPARATOR2 = ',';
+  
+  const TYPE5_SEPARATOR1 = '';
+  const TYPE5_SEPARATOR2 = '';
+  
   // init
   var type = 0;
   var result = '';
@@ -104,23 +120,34 @@ function autoBeautifier() {
   var line = new Array();
   line = source.split('\n');
   
-  
   // type check
   for(var i=0; i<line.length; i++) {
-    if(line[i].indexOf(':=') != -1 && line[i].indexOf('--') != -1 ) {
+    line[i] = trim(line[i], 1);
+    
+    if(line[i].indexOf(TYPE1_SEPARATOR1) != -1 && line[i].indexOf(TYPE1_SEPARATOR2) != -1 ) {
       type = 1;
-    } else if(line[i].indexOf('0x00') != -1 && line[i].indexOf('));') != -1 ) {
+    } else if(line[i].indexOf(TYPE2_SEPARATOR1) != -1 && line[i].indexOf(TYPE2_SEPARATOR2) != -1 ) {
       type = 2;
+    } else if(line[i].indexOf(TYPE3_SEPARATOR1) != -1 && line[i].indexOf(TYPE3_SEPARATOR2) != -1 ) {
+      type = 3;
+    } else if(line[i].indexOf(TYPE4_SEPARATOR1) != -1 && line[i].indexOf(TYPE4_SEPARATOR2) != -1 ) {
+      type = 4;
     }
   }
   
   
   switch(type) {
     case 1:
-      beautifier(':=', '--', 0);
+      beautifier2(TYPE1_SEPARATOR1, TYPE1_SEPARATOR2, 1);
       break;
     case 2:
-      beautifier('0x00,', '));', 1);
+      beautifier2(TYPE2_SEPARATOR1, TYPE2_SEPARATOR2, 1);
+      break;
+    case 3:
+      beautifier2(TYPE3_SEPARATOR1, TYPE3_SEPARATOR2, 1);
+      break;
+    case 4:
+      beautifier2(TYPE4_SEPARATOR1, TYPE4_SEPARATOR2, 1);
       break;
   }
   
@@ -130,7 +157,7 @@ function autoBeautifier() {
 
 
 
-function beautifier(separator1, separator2, isTrim) {
+function beautifier2(separator1, separator2, isTrim) {
   // init
   var result = '';
   var fieldMaxLength = 0;
@@ -146,16 +173,18 @@ function beautifier(separator1, separator2, isTrim) {
   
   // 1.최대길이 구하기
   for(var i=0; i<line.length; i++) {
+    line[i] = trim(line[i], isTrim);
+    
     if(line[i].indexOf(separator1) == -1 || line[i].indexOf(separator2) == -1 ) {
       continue;
     }
     
     var temp = line[i].split(separator1);
-    var field = trim(temp[0], isTrim);
+    var field = temp[0];
     
     temp = temp[1].split(separator2);
-    var value = trim(temp[0], isTrim);
-    var comment = trim(temp[1], isTrim);
+    var value = temp[0];
+    var comment = temp[1];
     
     if(field.length > fieldMaxLength) {
       fieldMaxLength = field.length;
@@ -168,17 +197,19 @@ function beautifier(separator1, separator2, isTrim) {
   
   // 2.최대길이만큼 공백 추가하기
   for(var i=0; i<line.length; i++) {
+    line[i] = trim(line[i], isTrim);
+    
     if(line[i].indexOf(separator1) == -1 || line[i].indexOf(separator2) == -1 ) {
       result = result + line[i] + '\n';
       continue;
     }
     
     var temp = line[i].split(separator1);
-    var field = trim(temp[0], isTrim);
+    var field = temp[0];
     
     temp = temp[1].split(separator2);
-    var value = trim(temp[0], isTrim);
-    var comment = trim(temp[1], isTrim);
+    var value = temp[0];
+    var comment = temp[1];
     
     var diff = fieldMaxLength - field.length;
     for(var j=0; j<diff; j++) {
